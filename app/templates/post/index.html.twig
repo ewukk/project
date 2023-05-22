@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.post_list'|trans }}
+    {{ 'post_list'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -12,6 +12,10 @@
             {{ knp_pagination_render(pagination) }}
         </div>
 
+        <a href="{{ url('post_create') }}" title="{{ 'action.create'|trans }}">
+            {{ 'create a post'|trans }}
+        </a>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -19,6 +23,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'Created_at'|trans, 'post.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Updated_at'|trans, 'post.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'post.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Category'|trans, 'category.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.content'|trans, 'post.content') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
@@ -30,10 +35,17 @@
                     <td>{{ post.createdAt|format_date('long') }}</td>
                     <td>{{ post.updatedAt|format_date('long') }}</td>
                     <td>{{ post.title }}</td>
+                    <td>{{ post.category.title }}</td>
                     <td>{{ post.content }}</td>
                     <td>
                         <a href="{{ url('post_show', {id: post.id}) }}" title="{{ 'action.show'|trans }}">
                             {{ 'show'|trans }}
+                        </a>
+                        <a href="{{ url('post_edit', {id: post.id}) }}" title="{{ 'action.edit'|trans }}">
+                            {{ 'edit'|trans }}
+                        </a>
+                        <a href="{{ url('post_delete', {id: post.id}) }}" title="{{ 'action.delete'|trans }}">
+                            {{ 'delete'|trans }}
                         </a>
                     </td>
                 </tr>

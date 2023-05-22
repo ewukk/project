@@ -1,21 +1,19 @@
 <?php
 /**
- * Post fixtures.
+ * Tag fixtures.
  */
 
 namespace App\DataFixtures;
 
 use App\Entity\Category;
-use App\Entity\Enum\PostStatus;
-use App\Entity\Post;
-use App\Entity\User;
+use App\Entity\Tag;
 use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
- * Class PostFixtures.
+ * Class TagFixtures.
  */
-class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
+class TagFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
@@ -30,25 +28,25 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
             return;
         }
 
-        $this->createMany(100, 'posts', function (int $i) {
-            $post = new Post();
-            $post->setTitle($this->faker->sentence);
-            $post->setContent($this->faker->sentence);
-            $post->setCreatedAt(
+        $this->createMany(100, 'tags', function (int $i) {
+            $tag = new Tag();
+            $tag->setTitle($this->faker->word);
+            $tag->setSlug($this->faker->word);
+            $tag->setCreatedAt(
                 DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
-            $post->setUpdatedAt(
+            $tag->setUpdatedAt(
                 DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
             /** @var Category $category */
             $category = $this->getRandomReference('categories');
-            $post->setCategory($category);
+            $tag->setCategory($category);
 
-            return $post;
+            return $tag;
         });
 
         $this->manager->flush();
@@ -66,4 +64,5 @@ class PostFixtures extends AbstractBaseFixtures implements DependentFixtureInter
     {
         return [CategoryFixtures::class];
     }
+
 }

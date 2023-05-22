@@ -11,11 +11,13 @@
             <dt>{{ 'label.id'|trans }}</dt>
             <dd>{{ post.id }}</dd>
             <dt>{{ 'Created_at'|trans }}</dt>
-            <dd>{{ post.createdAt|date('Y/m/d') }}</dd>
+            <dd>{{ post.createdAt|format_date('long') }}</dd>
             <dt>{{ 'Updated_at'|trans }}</dt>
-            <dd>{{ post.updatedAt|date('Y/m/d') }}</dd>
+            <dd>{{ post.updatedAt|format_date('long') }}</dd>
             <dt>{{ 'label.title'|trans }}</dt>
             <dd>{{  post.title }}</dd>
+            <dt>{{ 'Category'|trans }}</dt>
+            <dd>{{  post.category.title }}</dd>
             <dt>{{ 'label.content'|trans }}</dt>
             <dd>{{  post.content }}</dd>
         </dl>
